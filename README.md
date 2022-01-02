@@ -14,6 +14,10 @@ There are various text files in the Documentation/ subdirectory,
 several of them using the Restructured Text markup notation.
 See Documentation/00-INDEX for a list of what is contained in each file.
 
+DroneCi build status
+==============
+[![Build Status](https://cloud.drone.io/api/badges/Diaz1401/quantic_kernel_xiaomi_sm8250/status.svg?ref=refs/heads/upstreamed-common)](https://cloud.drone.io/Diaz1401/quantic_kernel_xiaomi_sm8250)
+
 Quantic kernel
 ==============
 Quantic is not another sm8250 kernel from the bunch, this kernel aims to give you
