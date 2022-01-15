@@ -706,6 +706,11 @@ KBUILD_CFLAGS   += -O3
 KBUILD_AFLAGS   += -O3
 endif
 
+ifeq ($(CONFIG_ARCH_KONA),y)
+KBUILD_CFLAGS   += -mcpu=cortex-a77
+KBUILD_AFLAGS   += -mcpu=cortex-a77
+endif
+
 # Tell gcc to never replace conditional load with a non-conditional one
 KBUILD_CFLAGS	+= $(call cc-option,--param=allow-store-data-races=0)
 KBUILD_CFLAGS	+= $(call cc-option,-fno-allow-store-data-races)
