@@ -4,7 +4,7 @@
 #
 
 #
-# Compiler: Ubuntu clang version 14.0.0-++20220109052912+fbf52caf58b3-1~exp1~20220109173012.117
+# Compiler: Ubuntu clang version 14.0.0-++20220115053019+cba72e4ce215-1~exp1~20220115173114.123
 #
 CONFIG_GCC_VERSION=0
 CONFIG_CC_IS_CLANG=y
@@ -585,7 +585,7 @@ CONFIG_HAVE_ARM_SMCCC=y
 #
 # Tegra firmware driver
 #
-CONFIG_MSM_TZ_LOG=y
+# CONFIG_MSM_TZ_LOG is not set
 # CONFIG_VIRTUALIZATION is not set
 CONFIG_ARM64_CRYPTO=y
 CONFIG_CRYPTO_SHA256_ARM64=y
