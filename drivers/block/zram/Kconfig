@@ -54,7 +54,12 @@ config ZRAM_MEMORY_TRACKING
 
 	  See Documentation/blockdev/zram.txt for more information.
 
+config HAVE_ZRAM_SIZE_OVERRIDE
+	bool "Allow kernel to override Zram size"
+	depends on ZRAM
+
 config ZRAM_SIZE_OVERRIDE
-	int "zram size to set from kernel"
+	int "Override zram size from the kernel"
+	depends on HAVE_ZRAM_SIZE_OVERRIDE
 	range 1 8
-	default 2
+	default 4
