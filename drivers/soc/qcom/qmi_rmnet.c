@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
- * Copyright (c) 2021 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #include <soc/qcom/qmi_rmnet.h>
@@ -619,7 +618,6 @@ qmi_rmnet_setup_client(void *port, struct qmi_info *qmi, struct tcmsg *tcm)
 		if (!qmi)
 			return -ENOMEM;
 
-		qmi->ws = wakeup_source_register(NULL, "RMNET_DFC");
 		rmnet_init_qmi_pt(port, qmi);
 	}
 
@@ -668,7 +666,6 @@ __qmi_rmnet_delete_client(void *port, struct qmi_info *qmi, int idx)
 
 	if (!qmi_rmnet_has_client(qmi) && !qmi_rmnet_has_pending(qmi)) {
 		rmnet_reset_qmi_pt(port);
-		wakeup_source_unregister(qmi->ws);
 		kfree(qmi);
 		return 0;
 	}
@@ -737,7 +734,6 @@ void qmi_rmnet_change_link(struct net_device *dev, void *port, void *tcm_pt)
 			    !qmi_rmnet_has_client(qmi) &&
 			    !qmi_rmnet_has_pending(qmi)) {
 				rmnet_reset_qmi_pt(port);
-				wakeup_source_unregister(qmi->ws);
 				kfree(qmi);
 			}
 		} else if (tcm->tcm_ifindex & FLAG_POWERSAVE_MASK) {
@@ -1186,17 +1182,6 @@ static void qmi_rmnet_check_stats(struct work_struct *work)
 	if (unlikely(!qmi))
 		return;
 
-	dfc_wakelock_release(qmi);
-
-	rmnet_get_packets(real_work->port, &rx, &tx);
-	rxd = rx - real_work->old_rx_pkts;
-	txd = tx - real_work->old_tx_pkts;
-	real_work->old_rx_pkts = rx;
-	real_work->old_tx_pkts = tx;
-
-	dl_msg_active = qmi->dl_msg_active;
-	qmi->dl_msg_active = false;
-
 	if (qmi->ps_enabled) {
 
 		/* Ready to accept grant */
@@ -1216,6 +1201,15 @@ static void qmi_rmnet_check_stats(struct work_struct *work)
 
 		goto end;
 	}
+
+	rmnet_get_packets(real_work->port, &rx, &tx);
+	rxd = rx - real_work->old_rx_pkts;
+	txd = tx - real_work->old_tx_pkts;
+	real_work->old_rx_pkts = rx;
+	real_work->old_tx_pkts = tx;
+
+	dl_msg_active = qmi->dl_msg_active;
+	qmi->dl_msg_active = false;
 
 	if (!rxd && !txd) {
 		/* If no DL msg received and there is a flow disabled,
@@ -1340,7 +1334,6 @@ void qmi_rmnet_work_exit(void *port)
 	rmnet_ps_wq = NULL;
 	kfree(rmnet_work);
 	rmnet_work = NULL;
-	dfc_wakelock_release((struct qmi_info *)rmnet_get_qmi_pt(port));
 }
 EXPORT_SYMBOL(qmi_rmnet_work_exit);
 
