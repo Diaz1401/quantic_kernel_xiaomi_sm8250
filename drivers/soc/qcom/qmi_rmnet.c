@@ -1155,14 +1155,6 @@ static void dfc_wakelock_acquire(struct qmi_info *qmi)
 	}
 }
 
-static void dfc_wakelock_release(struct qmi_info *qmi)
-{
-	if (qmi && qmi->wakelock_active) {
-		__pm_relax(qmi->ws);
-		qmi->wakelock_active = false;
-	}
-}
-
 static void qmi_rmnet_check_stats(struct work_struct *work)
 {
 	struct rmnet_powersave_work *real_work;
