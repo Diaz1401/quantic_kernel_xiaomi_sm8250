@@ -1,10 +1,10 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.19.226 Kernel Configuration
+# Linux/arm64 4.19.229 Kernel Configuration
 #
 
 #
-# Compiler: Ubuntu clang version 15.0.0-++20220210052936+b861ddf365ce-1~exp1~20220210173034.154
+# Compiler: Ubuntu clang version 15.0.0-++20220214053039+00cd6c04202a-1~exp1~20220214173130.159
 #
 CONFIG_GCC_VERSION=0
 CONFIG_CC_IS_CLANG=y
@@ -6065,8 +6065,6 @@ CONFIG_FTRACE=y
 # CONFIG_FTRACE_SYSCALLS is not set
 # CONFIG_TRACER_SNAPSHOT is not set
 CONFIG_BRANCH_PROFILE_NONE=y
-# CONFIG_PROFILE_ANNOTATED_BRANCHES is not set
-# CONFIG_PROFILE_ALL_BRANCHES is not set
 # CONFIG_STACK_TRACER is not set
 # CONFIG_BLK_DEV_IO_TRACE is not set
 CONFIG_UPROBE_EVENTS=y
